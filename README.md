@@ -2,7 +2,7 @@
 
 TLDR: Google recently launched a web tool called Quick Draw which asks you to draw an object then tries to guess that object using a Neural Network AI. I "reverse-engineered" it and made my own drawing-guessing tool which leverages the same Google AI but adds some extra visualization.
 
-<img src="screenshots/screenshot_web-demo-quickdraw-visualizer.png" height="500px" width="auto">
+
 
 To check out the drawing tool, go to <a href="https://engelsjk.github.io/web-demo-quickdraw-visualizer/" target="_blank">https://engelsjk.github.io/web-demo-quickdraw-visualizer/</a> and start drawing! You'll quickly see a plot of "guesses" of what object you're drawing and their relative fit scores, all provided by the Google AI behind the Google Quick Draw tool.
 
@@ -28,13 +28,11 @@ First, I set out to look at the network calls of the Quick Draw web tool using t
 
 As you draw, a lot of POST requests are sent to what appears to be an API endpoint at <i>inputtools.google.com</i>.
 
-<img src="screenshots/screenshot_quickdraw-google-2.png" height="500px" width="auto">
 
 (You can also see an OPTION request for each POST request, but I ignored those for this investigation assuming that I wouldn't be able to interpret their intent from the client side.)
 
 The most important part of these POST requests is the data payload itself, which consists of a JSON string with two main components: (i) the drawing canvas width/height and (ii) an "ink" array that consists of three arrays of numbers.
 
-<img src="screenshots/screenshot_quickdraw-google-3.png" height="500px" width="auto">
 
 <b>IMPORTANT: This "ink" array is obviously the data behind the canvas drawing in some format. It took a bit of trial-and-error, but I eventually figured out that the ink array includes values for X,Y as well as time in the following format:</b> 
 
